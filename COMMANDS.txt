@@ -1,0 +1,22 @@
+# Hotels-ML — Commandes utiles
+
+## Environnement
+source .venv/bin/activate    # active l'environnement virtuel
+deactivate                   # quitte l'environnement virtuel
+
+## Données
+make fetch                   # télécharge le dataset hotels.csv dans data/raw/
+PYTHONPATH=src python scripts/fetch_data.py   # équivalent manuel
+
+## Notebook
+make lab                     # lance JupyterLab dans le navigateur
+
+## Application
+make app                     # lance l'application Streamlit (app/app.py)
+
+## Dépendances
+make freeze                  # met à jour requirements.txt et push auto
+pip freeze > requirements.txt # équivalent manuel
+
+## Data assurance rapide
+make qa                      # affiche un profil rapide + règles métiers
