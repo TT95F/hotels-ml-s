@@ -12,3 +12,30 @@ def glimpse(df, n=5):
         preview = df[col].dropna().unique()[:n]
         print(f"{col:<25} {str(dtype):<10} non-null: {non_null:<6} "
               f"unique: {unique:<6} preview: {preview}")
+        
+
+import pandas as pd     
+def matrice_display(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    """
+    Affiche une matrice (count + proportion) pour une colonne donnée d’un DataFrame.
+
+    Args:
+        df : DataFrame pandas
+        col : Nom de la colonne à analyser (str)
+
+    Returns:
+        DataFrame avec deux colonnes:
+            - 'count': nombre d’occurrences
+            - 'proportion': fréquence relative (somme = 1)
+
+    Nécessite pandas
+    """
+    counts = df[col].value_counts(dropna=False).sort_index()
+    props = df[col].value_counts(normalize=True, dropna=False).sort_index()
+
+    out = pd.DataFrame({
+        "count": counts,
+        "proportion": props
+    })
+
+    return out
