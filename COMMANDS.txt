@@ -20,3 +20,11 @@ pip freeze > requirements.txt # équivalent manuel
 
 ## Data assurance rapide
 make qa                      # affiche un profil rapide + règles métiers
+
+## export HTML (sans cellules de code) depuis notebooks/01_eda.ipynb
+jupyter nbconvert --to html --no-input \
+  --output-dir reports notebooks/01_eda.ipynb
+
+## ouvrir le fichier généré (macOS)
+open reports/01_eda.html
+

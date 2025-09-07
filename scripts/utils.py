@@ -1,3 +1,5 @@
+import pandas as pd
+
 def glimpse(df, n=5):
     """
     Aperçu type 'glimpse' (R/tidyverse) pour un DataFrame pandas.
@@ -12,9 +14,7 @@ def glimpse(df, n=5):
         preview = df[col].dropna().unique()[:n]
         print(f"{col:<25} {str(dtype):<10} non-null: {non_null:<6} "
               f"unique: {unique:<6} preview: {preview}")
-        
-
-import pandas as pd     
+ 
 def matrice_display(df: pd.DataFrame, col: str) -> pd.DataFrame:
     """
     Affiche une matrice (count + proportion) pour une colonne donnée d’un DataFrame.
@@ -39,3 +39,22 @@ def matrice_display(df: pd.DataFrame, col: str) -> pd.DataFrame:
     })
 
     return out
+
+def matrice_cross(df: pd.DataFrame, col1: str, col2: str) -> pd.DataFrame:
+    """
+    Affiche une matrice croisée de counts et proportions 
+    entre deux colonnes catégorielles d’un DataFrame.
+    """
+    # Tableau croisé brut
+    cross_counts = pd.crosstab(df[col1], df[col2], margins=False)
+
+    # Proportions (par rapport au total général)
+    cross_props = cross_counts / cross_counts.sum().sum()
+    cross_props = cross_props.round(4)
+    
+    # Fusion counts + proportions en MultiIndex
+    cross = pd.concat(
+        {"count": cross_counts, "proportion": cross_props},
+        axis=1
+    )
+    return cross
